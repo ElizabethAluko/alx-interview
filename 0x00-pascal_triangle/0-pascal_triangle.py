@@ -4,14 +4,13 @@ def pascal_triangle(n):
 
     if n <= 0:
         return lists
-
     for i in range(n):
         lists_item = [1]
         for j in range(i):
             if j == i - 1:
                 lists_item.append(1)
             else:
-                item = lists_item[j] + lists_item[j + 1]
-                lists_item.append[item]
+                item = lists[-1][j] + lists[-1][(j + 1)]
+                lists_item.append(item)
         lists.append(lists_item)
     return lists
