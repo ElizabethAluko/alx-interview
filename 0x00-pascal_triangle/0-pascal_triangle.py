@@ -2,10 +2,12 @@
 """Module to define pascal's triangle"""
 
 
-
 def pascal_triangle(n):
-    """Returns a list of lists of intergers representing the Pascal's triangle of n"""
-    lists = [ ]
+    """
+    Returns a list of lists of intergers representing
+    the Pascal's triangle of n
+    """
+    lists = []
 
     if n <= 0:
         return lists
