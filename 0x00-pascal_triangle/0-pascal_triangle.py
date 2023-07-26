@@ -2,6 +2,7 @@
 """Module to define pascal's triangle"""
 
 
+
 def pascal_triangle(n):
     """Returns a list of lists of intergers representing the Pascal's triangle of n"""
     lists = [ ]
@@ -10,6 +11,7 @@ def pascal_triangle(n):
         return lists
     for i in range(n):
         lists_item = [1]
+
         for j in range(i):
             if j == i - 1:
                 lists_item.append(1)
