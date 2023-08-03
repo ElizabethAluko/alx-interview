@@ -13,7 +13,7 @@ def canUnlockAll(boxes):
         if key in locked_boxes:
             locked_boxes.remove(key)
             box_keys.extend(key for key in boxes[key])
-    
+
     if not locked_boxes:
         return True
     else:
