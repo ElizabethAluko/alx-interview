@@ -21,7 +21,6 @@ def minOperations(n):
 
         Number of operations: 6
     """
-
     if n <= 1:
         return 0
 
