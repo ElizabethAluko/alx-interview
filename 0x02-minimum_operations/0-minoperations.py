@@ -24,23 +24,14 @@ def minOperations(n):
 
     if n <= 1:
         return 0
-    elif n <= 5 or isprime(n):
-        return n
-    else:
-        smallest_sum = float('inf')
 
-        for divisor in range(2, int(n**0.5) + 1):
-            if n % divisor == 0:
-                quotient = n / divisor
-                current_sum = divisor + quotient
-                smallest_sum = min(smallest_sum, current_sum)
+    operations = 0
+    divisor = 2
 
-        return int(smallest_sum)
+    while n > 1:
+        while n % divisor == 0:
+            operations += divisor
+            n /= divisor
+        divisor += 1
 
-def isprime(number):
-    """Check if a number is prime"""
-    for i in range(3, int(number**0.5) + 1, 2):
-        if number % i == 0:
-            return False
-
-    return True
+    return operations
