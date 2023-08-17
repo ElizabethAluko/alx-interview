@@ -1,3 +1,10 @@
+#!/usr/bin/python3
+
+"""
+This script reads input from stdin line by line, processes each line according to the specified format,
+and computes and prints metrics such as total file size and number of lines by status code.
+"""
+
 import sys
 import signal
 
@@ -7,12 +14,20 @@ total_file_size = 0
 line_count = 0
 
 def print_statistics():
+    """
+    Print statistics including total file size and number of lines by status code.
+    """
     print(f"Total file size: File size: {total_file_size}")
     for code in sorted(status_codes):
         if status_count[code] > 0:
             print(f"{code}: {status_count[code]}")
 
 def process_line(line):
+    """
+    Process a single line and update metrics accordingly.
+    
+    :param line: The input line to process.
+    """
     global total_file_size, line_count
     parts = line.split()
     if len(parts) != 10:
