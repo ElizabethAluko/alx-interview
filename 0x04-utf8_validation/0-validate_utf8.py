@@ -21,7 +21,7 @@ def validUTF8(data):
             # Check for single-byte character
             elif (byte >> 3) == 0b11110:
                 byte_remain = 3
-            #invalid byte pattern
+            # invalid byte pattern
             else:
                 return False
         else:
@@ -30,5 +30,5 @@ def validUTF8(data):
                 # Invalid continuation byte
                 return False
             byte_remain -= 1
-    #Put byte_remain = 0 to ensure all characters are properly formed
+    # Put byte_remain = 0 to if characters are properly formed
     return byte_remain == 0
