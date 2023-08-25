@@ -7,11 +7,11 @@ def validUTF8(data):
     in the current character
     """
     bytes_to_process = 0
-    
+
     for num in data:
         # Convert the number to binary representation and get the last 8 bits
         binary_num = bin(num)[2:].zfill(8)[-8:]
-        
+
         if bytes_to_process == 0:
             # Check the number of bytes needed for the current character
             if binary_num.startswith('0'):
@@ -25,10 +25,10 @@ def validUTF8(data):
             else:
                 return False
         else:
-            # Check if the current byte is a continuation byte (starts with '10')
+            # Check if the current byte is a continuation byte
             if not binary_num.startswith('10'):
                 return False
             bytes_to_process -= 1
-    
+
     # If all bytes are processed correctly, bytes_to_process should be 0
     return bytes_to_process == 0
