@@ -1,34 +1,34 @@
 #!/usr/bin/python3
-"""Contains module that Validate UTF-8 encoding"""
+""" Module that text whether data is UTF-8 encoded"""
 
 
 def validUTF8(data):
-    """determines if a given data set represents a valid UTF-8 encoding
+    """ Initialize a counter to keep track of the number of bytes
+    in the current character
     """
-    byte_remain = 0
-
-    for byte in data:
-        if byte_remain == 0:
-            # Check for single-byte character
-            if (byte >> 7) == 0:
-                byte_remain = 0
-            # Check for two-byte character
-            elif (byte >> 5) == 0b110:
-                byte_remain = 1
-            # Check for single-byte character
-            elif (byte >> 4) == 0b1110:
-                byte_remain = 2
-            # Check for single-byte character
-            elif (byte >> 3) == 0b11110:
-                byte_remain = 3
-            # invalid byte pattern
+    bytes_to_process = 0
+    
+    for num in data:
+        # Convert the number to binary representation and get the last 8 bits
+        binary_num = bin(num)[2:].zfill(8)[-8:]
+        
+        if bytes_to_process == 0:
+            # Check the number of bytes needed for the current character
+            if binary_num.startswith('0'):
+                bytes_to_process = 0
+            elif binary_num.startswith('110'):
+                bytes_to_process = 1
+            elif binary_num.startswith('1110'):
+                bytes_to_process = 2
+            elif binary_num.startswith('11110'):
+                bytes_to_process = 3
             else:
                 return False
         else:
-            # Check for continuation byte
-            if (byte >> 6) != 0b10:
-                # Invalid continuation byte
+            # Check if the current byte is a continuation byte (starts with '10')
+            if not binary_num.startswith('10'):
                 return False
-            byte_remain -= 1
-    # Put byte_remain = 0 to if characters are properly formed
-    return byte_remain == 0
+            bytes_to_process -= 1
+    
+    # If all bytes are processed correctly, bytes_to_process should be 0
+    return bytes_to_process == 0
