@@ -90,7 +90,7 @@ def main():
     Main function to handle command-line arguments and solve N queens problem.
     """
     if len(sys.argv) != 2:
-        print("Usage: ./0-nqueens.py N")
+        print("Usage: 0-nqueens.py N")
         sys.exit(1)
 
     try:
