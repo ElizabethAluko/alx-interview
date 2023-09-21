@@ -30,7 +30,6 @@ def makeChange(coins, total):
         for amount in range(coin, total + 1):
             dp[amount] = min(dp[amount], dp[amount - coin] + 1)
 
-    if dp[total] == float('inf'):
-        return -1  # No combination of coins can make the total
-    else:
-        return dp[total]  # Minimum number of coins to make the total
+    # If dp[total] is still float('inf'), no valid combination exists
+    # return -1
+    return dp[total] if dp[total] != float('inf') else -1
