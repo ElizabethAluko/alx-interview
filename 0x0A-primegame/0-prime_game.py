@@ -1,51 +1,28 @@
 #!/usr/bin/python3
-"""Prime Numbers Game"""
+"""Prime game module.
+"""
 
 
 def isWinner(x, nums):
-    """Determine the winner of prime game"""
-
-    def isPrime(number):
-        """Check if a number is a prime number or not"""
-
-        if number <= 1:
-            return False
-        if number == 2:
-            return True
-        if number % 2 == 0:
-            return False
-        for i in range(3, int(number ** 0.5) + 1, 2):
-            if number % i == 0:
-                return False
-        return True
-
-    # Create a list to store the results for each round
-    results = []
-
-    for n in nums:
-        # Create a table to store results for each num up to n
-        dp = [False] * (n + 1)
-
-        # Initialize the base cases
-        dp[0] = False
-        dp[1] = False
-
-        # Populate the table based on prime numbers
-        for i in range(2, n + 1):
-            if isPrime(i):
-                dp[i] = not dp[i - 1]
-
-        # Append the result for this round to the results list
-        results.append("Maria" if dp[n] else "Ben")
-
-    # Count the number of wins for each player
-    maria_wins = results.count("Maria")
-    ben_wins = results.count("Ben")
-
-    # Determine the overall winner
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
-        return "Ben"
-    else:
+    """Determines the winner of a prime game session with `x` rounds.
+    """
+    if x < 1 or not nums:
         return None
+    marias_wins, bens_wins = 0, 0
+    # generate primes with a limit of the maximum number in nums
+    n = max(nums)
+    primes = [True for _ in range(1, n + 1, 1)]
+    primes[0] = False
+    for i, is_prime in enumerate(primes, 1):
+        if i == 1 or not is_prime:
+            continue
+        for j in range(i + i, n + 1, i):
+            primes[j - 1] = False
+    # filter the number of primes less than n in nums for each round
+    for _, n in zip(range(x), nums):
+        primes_count = len(list(filter(lambda x: x, primes[0: n])))
+        bens_wins += primes_count % 2 == 0
+        marias_wins += primes_count % 2 == 1
+    if marias_wins == bens_wins:
+        return None
+    return 'Maria' if marias_wins > bens_wins else 'Ben'
